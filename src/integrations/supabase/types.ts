@@ -14,7 +14,108 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      otp_codes: {
+        Row: {
+          attempts: number | null
+          code_hash: string
+          consumed: boolean | null
+          created_at: string
+          email: string
+          expires_at: string
+          id: string
+        }
+        Insert: {
+          attempts?: number | null
+          code_hash: string
+          consumed?: boolean | null
+          created_at?: string
+          email: string
+          expires_at: string
+          id?: string
+        }
+        Update: {
+          attempts?: number | null
+          code_hash?: string
+          consumed?: boolean | null
+          created_at?: string
+          email?: string
+          expires_at?: string
+          id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          bio: string | null
+          community: string | null
+          created_at: string
+          date_of_birth: string | null
+          education: string | null
+          email: string
+          family_details: string | null
+          full_name: string
+          gender: string | null
+          horoscope: string | null
+          id: string
+          is_online: boolean | null
+          last_seen: string | null
+          occupation: string | null
+          partner_expectations: string | null
+          phone: string | null
+          photo_url: string | null
+          profile_completion: number | null
+          sub_sect: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          bio?: string | null
+          community?: string | null
+          created_at?: string
+          date_of_birth?: string | null
+          education?: string | null
+          email: string
+          family_details?: string | null
+          full_name: string
+          gender?: string | null
+          horoscope?: string | null
+          id?: string
+          is_online?: boolean | null
+          last_seen?: string | null
+          occupation?: string | null
+          partner_expectations?: string | null
+          phone?: string | null
+          photo_url?: string | null
+          profile_completion?: number | null
+          sub_sect?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          bio?: string | null
+          community?: string | null
+          created_at?: string
+          date_of_birth?: string | null
+          education?: string | null
+          email?: string
+          family_details?: string | null
+          full_name?: string
+          gender?: string | null
+          horoscope?: string | null
+          id?: string
+          is_online?: boolean | null
+          last_seen?: string | null
+          occupation?: string | null
+          partner_expectations?: string | null
+          phone?: string | null
+          photo_url?: string | null
+          profile_completion?: number | null
+          sub_sect?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
