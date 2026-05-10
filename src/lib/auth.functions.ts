@@ -127,19 +127,17 @@ export const verifyOtp = createServerFn({ method: "POST" })
 
     await supabaseAdmin.from("otp_codes").update({ consumed: true }).eq("id", row.id);
 
-    // Find or create user
-    const { data: existing } = await supabaseAdmin.auth.admin.listUsers({
-      page: 1,
-      perPage: 1,
-    });
-    // listUsers doesn't filter; use getUserByEmail via admin
+    // Find or create user — paginate listUsers to find by email
     let userId: string | null = null;
-    {
-      // @ts-ignore — admin API supports getUserByEmail in recent versions
-      const found = await supabaseAdmin.auth.admin
-        .getUserByEmail?.(email)
-        .catch(() => null);
-      if (found?.data?.user) userId = found.data.user.id;
+    for (let page = 1; page <= 20 && !userId; page++) {
+      const { data: list, error } = await supabaseAdmin.auth.admin.listUsers({
+        page,
+        perPage: 200,
+      });
+      if (error) break;
+      const found = list.users.find((u) => u.email?.toLowerCase() === email);
+      if (found) userId = found.id;
+      if (list.users.length < 200) break;
     }
     if (!userId) {
       const created = await supabaseAdmin.auth.admin.createUser({
