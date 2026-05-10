@@ -113,13 +113,14 @@ export const verifyOtp = createServerFn({ method: "POST" })
     if (new Date(row.expires_at).getTime() < Date.now()) {
       throw new Error("Code expired. Request a new one.");
     }
-    if (row.attempts >= 5) {
+    const attempts = row.attempts ?? 0;
+    if (attempts >= 5) {
       throw new Error("Too many attempts. Request a new code.");
     }
     if (row.code_hash !== hashCode(code)) {
       await supabaseAdmin
         .from("otp_codes")
-        .update({ attempts: row.attempts + 1 })
+        .update({ attempts: attempts + 1 })
         .eq("id", row.id);
       throw new Error("Invalid code.");
     }
