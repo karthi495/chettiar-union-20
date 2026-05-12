@@ -46,8 +46,11 @@ async function sendBrevoEmail(toEmail: string, code: string) {
   });
   if (!res.ok) {
     const txt = await res.text();
+    console.error("[Brevo] send failed", { status: res.status, body: txt, to: toEmail });
     throw new Error(`Brevo send failed [${res.status}]: ${txt}`);
   }
+  const json = await res.json().catch(() => ({}));
+  console.log("[Brevo] send ok", { to: toEmail, messageId: (json as any)?.messageId });
 }
 
 export const sendOtp = createServerFn({ method: "POST" })
