@@ -8,6 +8,7 @@ import {
 } from "@tanstack/react-router";
 import { Toaster } from "sonner";
 import { AuthProvider } from "@/context/AuthContext";
+import { I18nProvider } from "@/lib/i18n";
 
 import appCss from "../styles.css?url";
 
