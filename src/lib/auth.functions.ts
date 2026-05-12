@@ -7,7 +7,7 @@ import { createHash, randomInt } from "crypto";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 
 const BREVO_GATEWAY = "https://connector-gateway.lovable.dev/brevo";
-const SENDER_EMAIL = "noreply@chettiarconnect.app";
+const SENDER_EMAIL = "ablelov252@gmail.com";
 const SENDER_NAME = "Chettiar Connect";
 
 const hashCode = (code: string) => createHash("sha256").update(code).digest("hex");
