@@ -3,17 +3,21 @@ import { Heart, Menu, X } from "lucide-react";
 import { useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { Button } from "@/components/ui/button";
+import { useI18n } from "@/lib/i18n";
+import { LangSwitcher } from "@/components/LangSwitcher";
 
 export function Navbar() {
   const { user, signOut } = useAuth();
+  const { t } = useI18n();
   const router = useRouter();
   const [open, setOpen] = useState(false);
 
   const links = [
-    { to: "/", label: "Home" },
-    { to: "/search", label: "Browse" },
-    user ? { to: "/dashboard", label: "Dashboard" } : null,
-    user ? { to: "/profile", label: "My Profile" } : null,
+    { to: "/", label: t("home") },
+    { to: "/search", label: t("browse") },
+    { to: "/sangam", label: t("sangams") },
+    user ? { to: "/dashboard", label: t("dashboard") } : null,
+    user ? { to: "/profile", label: t("myProfile") } : null,
   ].filter(Boolean) as { to: string; label: string }[];
 
   return (
@@ -29,7 +33,7 @@ export function Navbar() {
           </div>
         </Link>
 
-        <nav className="hidden md:flex items-center gap-7">
+        <nav className="hidden md:flex items-center gap-6">
           {links.map((l) => (
             <Link
               key={l.to}
@@ -42,7 +46,8 @@ export function Navbar() {
           ))}
         </nav>
 
-        <div className="hidden md:flex items-center gap-2">
+        <div className="hidden md:flex items-center gap-3">
+          <LangSwitcher />
           {user ? (
             <Button
               variant="outline"
@@ -52,13 +57,13 @@ export function Navbar() {
                 router.navigate({ to: "/" });
               }}
             >
-              Sign out
+              {t("signOut")}
             </Button>
           ) : (
             <>
-              <Button asChild variant="ghost" size="sm"><Link to="/login">Login</Link></Button>
+              <Button asChild variant="ghost" size="sm"><Link to="/login">{t("login")}</Link></Button>
               <Button asChild size="sm" className="bg-gradient-royal text-secondary border border-secondary/30 shadow-elegant hover:opacity-95">
-                <Link to="/register">Register</Link>
+                <Link to="/register">{t("register")}</Link>
               </Button>
             </>
           )}
@@ -77,12 +82,13 @@ export function Navbar() {
                 {l.label}
               </Link>
             ))}
+            <LangSwitcher className="self-start" />
             {user ? (
-              <Button variant="outline" size="sm" onClick={async () => { await signOut(); setOpen(false); router.navigate({ to: "/" }); }}>Sign out</Button>
+              <Button variant="outline" size="sm" onClick={async () => { await signOut(); setOpen(false); router.navigate({ to: "/" }); }}>{t("signOut")}</Button>
             ) : (
               <div className="flex gap-2">
-                <Button asChild variant="outline" size="sm" className="flex-1"><Link to="/login" onClick={() => setOpen(false)}>Login</Link></Button>
-                <Button asChild size="sm" className="flex-1 bg-gradient-royal text-secondary"><Link to="/register" onClick={() => setOpen(false)}>Register</Link></Button>
+                <Button asChild variant="outline" size="sm" className="flex-1"><Link to="/login" onClick={() => setOpen(false)}>{t("login")}</Link></Button>
+                <Button asChild size="sm" className="flex-1 bg-gradient-royal text-secondary"><Link to="/register" onClick={() => setOpen(false)}>{t("register")}</Link></Button>
               </div>
             )}
           </div>

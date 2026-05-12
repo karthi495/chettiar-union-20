@@ -1,15 +1,33 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { Heart, ShieldCheck, Sparkles, Star, Users } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
+import { SangamCard } from "@/components/SangamCard";
 import { Button } from "@/components/ui/button";
+import { supabase } from "@/integrations/supabase/client";
+import { useI18n } from "@/lib/i18n";
 import heroImg from "@/assets/hero.jpg";
 
 export const Route = createFileRoute("/")({ component: Home });
 
 function Home() {
+  const { t } = useI18n();
+  const { data: featured = [] } = useQuery({
+    queryKey: ["sangams-featured"],
+    queryFn: async () => {
+      const { data } = await supabase
+        .from("sangams")
+        .select("*")
+        .eq("is_approved", true)
+        .order("is_featured", { ascending: false })
+        .order("created_at", { ascending: false })
+        .limit(6);
+      return data ?? [];
+    },
+  });
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
@@ -78,6 +96,22 @@ function Home() {
           </motion.div>
         ))}
       </section>
+
+      {/* Featured Sangams */}
+      {featured.length > 0 && (
+        <section className="mx-auto max-w-7xl px-6 py-16">
+          <div className="flex items-end justify-between mb-8">
+            <div>
+              <h2 className="font-display text-4xl text-primary">{t("featured")}</h2>
+              <p className="text-muted-foreground mt-2">{t("findSangam")}</p>
+            </div>
+            <Link to="/sangam" className="text-sm text-primary font-semibold hover:underline">{t("viewAll")} →</Link>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {featured.map((s, i) => <SangamCard key={s.id} s={s} index={i} />)}
+          </div>
+        </section>
+      )}
 
       {/* Success stories */}
       <section className="mx-auto max-w-7xl px-6 py-16">

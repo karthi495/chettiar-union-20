@@ -116,15 +116,159 @@ export type Database = {
         }
         Relationships: []
       }
+      sangams: {
+        Row: {
+          active_events: number | null
+          address_en: string | null
+          address_ta: string | null
+          blood_donation_info: string | null
+          city: string | null
+          community_name: string | null
+          contact_person: string | null
+          created_at: string
+          description_en: string | null
+          description_ta: string | null
+          district: string | null
+          educational_support_info: string | null
+          email: string | null
+          founded_year: number | null
+          gallery_urls: string[] | null
+          id: string
+          image_url: string | null
+          is_approved: boolean | null
+          is_featured: boolean | null
+          is_popular: boolean | null
+          map_link: string | null
+          marriage_help_info: string | null
+          marriage_success_count: number | null
+          office_timing_en: string | null
+          office_timing_ta: string | null
+          phone: string | null
+          registered_families: number | null
+          sangam_name_en: string
+          sangam_name_ta: string | null
+          slug: string
+          total_members: number | null
+          upcoming_events: Json | null
+          updated_at: string
+          view_count: number | null
+          website: string | null
+          whatsapp: string | null
+        }
+        Insert: {
+          active_events?: number | null
+          address_en?: string | null
+          address_ta?: string | null
+          blood_donation_info?: string | null
+          city?: string | null
+          community_name?: string | null
+          contact_person?: string | null
+          created_at?: string
+          description_en?: string | null
+          description_ta?: string | null
+          district?: string | null
+          educational_support_info?: string | null
+          email?: string | null
+          founded_year?: number | null
+          gallery_urls?: string[] | null
+          id?: string
+          image_url?: string | null
+          is_approved?: boolean | null
+          is_featured?: boolean | null
+          is_popular?: boolean | null
+          map_link?: string | null
+          marriage_help_info?: string | null
+          marriage_success_count?: number | null
+          office_timing_en?: string | null
+          office_timing_ta?: string | null
+          phone?: string | null
+          registered_families?: number | null
+          sangam_name_en: string
+          sangam_name_ta?: string | null
+          slug: string
+          total_members?: number | null
+          upcoming_events?: Json | null
+          updated_at?: string
+          view_count?: number | null
+          website?: string | null
+          whatsapp?: string | null
+        }
+        Update: {
+          active_events?: number | null
+          address_en?: string | null
+          address_ta?: string | null
+          blood_donation_info?: string | null
+          city?: string | null
+          community_name?: string | null
+          contact_person?: string | null
+          created_at?: string
+          description_en?: string | null
+          description_ta?: string | null
+          district?: string | null
+          educational_support_info?: string | null
+          email?: string | null
+          founded_year?: number | null
+          gallery_urls?: string[] | null
+          id?: string
+          image_url?: string | null
+          is_approved?: boolean | null
+          is_featured?: boolean | null
+          is_popular?: boolean | null
+          map_link?: string | null
+          marriage_help_info?: string | null
+          marriage_success_count?: number | null
+          office_timing_en?: string | null
+          office_timing_ta?: string | null
+          phone?: string | null
+          registered_families?: number | null
+          sangam_name_en?: string
+          sangam_name_ta?: string | null
+          slug?: string
+          total_members?: number | null
+          upcoming_events?: Json | null
+          updated_at?: string
+          view_count?: number | null
+          website?: string | null
+          whatsapp?: string | null
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "moderator" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -251,6 +395,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "moderator", "user"],
+    },
   },
 } as const

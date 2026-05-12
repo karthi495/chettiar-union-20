@@ -153,4 +153,8 @@
   .animate-float { animation: float 6s ease-in-out infinite; }
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap');
+
+:lang(ta), [lang="ta"] {
+  font-family: "Noto Sans Tamil", "Inter", system-ui, sans-serif;
+}
