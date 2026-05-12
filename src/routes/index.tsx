@@ -97,6 +97,22 @@ function Home() {
         ))}
       </section>
 
+      {/* Featured Sangams */}
+      {featured.length > 0 && (
+        <section className="mx-auto max-w-7xl px-6 py-16">
+          <div className="flex items-end justify-between mb-8">
+            <div>
+              <h2 className="font-display text-4xl text-primary">{t("featured")}</h2>
+              <p className="text-muted-foreground mt-2">{t("findSangam")}</p>
+            </div>
+            <Link to="/sangam" className="text-sm text-primary font-semibold hover:underline">{t("viewAll")} →</Link>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {featured.map((s, i) => <SangamCard key={s.id} s={s} index={i} />)}
+          </div>
+        </section>
+      )}
+
       {/* Success stories */}
       <section className="mx-auto max-w-7xl px-6 py-16">
         <div className="text-center mb-10">
