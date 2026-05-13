@@ -5,7 +5,7 @@ import { Heart, ShieldCheck, Sparkles, Star, Users } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
-import { SangamCard } from "@/components/SangamCard";
+import { CommunityCard } from "@/components/CommunityCard";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { useI18n } from "@/lib/i18n";
@@ -15,19 +15,20 @@ export const Route = createFileRoute("/")({ component: Home });
 
 function Home() {
   const { t } = useI18n();
-  const { data: featured = [] } = useQuery({
-    queryKey: ["sangams-featured"],
+  const { data: recent = [] } = useQuery({
+    queryKey: ["community-recent"],
     queryFn: async () => {
       const { data } = await supabase
-        .from("sangams")
+        .from("community_directory")
         .select("*")
         .eq("is_approved", true)
-        .order("is_featured", { ascending: false })
+        .eq("visibility", "public")
         .order("created_at", { ascending: false })
         .limit(6);
       return data ?? [];
     },
   });
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
@@ -61,7 +62,7 @@ function Home() {
                 <Link to="/register">Create Free Profile</Link>
               </Button>
               <Button asChild size="lg" variant="outline" className="border-secondary/60 text-secondary hover:bg-secondary/10">
-                <Link to="/search">Browse Matches</Link>
+                <Link to="/community">{t("communityDirectory")}</Link>
               </Button>
             </div>
             <div className="mt-10 flex gap-8 text-sm">
@@ -97,18 +98,18 @@ function Home() {
         ))}
       </section>
 
-      {/* Featured Sangams */}
-      {featured.length > 0 && (
+      {/* Community Directory recent */}
+      {recent.length > 0 && (
         <section className="mx-auto max-w-7xl px-6 py-16">
           <div className="flex items-end justify-between mb-8">
             <div>
-              <h2 className="font-display text-4xl text-primary">{t("featured")}</h2>
-              <p className="text-muted-foreground mt-2">{t("findSangam")}</p>
+              <h2 className="font-display text-4xl text-primary">{t("recentRegistrations")}</h2>
+              <p className="text-muted-foreground mt-2">{t("communityDirectoryTagline")}</p>
             </div>
-            <Link to="/sangam" className="text-sm text-primary font-semibold hover:underline">{t("viewAll")} →</Link>
+            <Link to="/community" className="text-sm text-primary font-semibold hover:underline">{t("viewAll")} →</Link>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {featured.map((s, i) => <SangamCard key={s.id} s={s} index={i} />)}
+            {recent.map((e, i) => <CommunityCard key={e.id} e={e} index={i} />)}
           </div>
         </section>
       )}

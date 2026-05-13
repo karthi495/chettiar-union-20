@@ -14,11 +14,12 @@ import { Route as RegisterRouteImport } from './routes/register'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as SangamIndexRouteImport } from './routes/sangam.index'
-import { Route as SangamSlugRouteImport } from './routes/sangam.$slug'
+import { Route as CommunityIndexRouteImport } from './routes/community.index'
+import { Route as CommunityIdRouteImport } from './routes/community.$id'
 import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
-import { Route as AuthenticatedAdminSangamsRouteImport } from './routes/_authenticated/admin.sangams'
+import { Route as AuthenticatedCommunityRegisterRouteImport } from './routes/_authenticated/community.register'
+import { Route as AuthenticatedAdminCommunityRouteImport } from './routes/_authenticated/admin.community'
 
 const SearchRoute = SearchRouteImport.update({
   id: '/search',
@@ -44,14 +45,14 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SangamIndexRoute = SangamIndexRouteImport.update({
-  id: '/sangam/',
-  path: '/sangam/',
+const CommunityIndexRoute = CommunityIndexRouteImport.update({
+  id: '/community/',
+  path: '/community/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SangamSlugRoute = SangamSlugRouteImport.update({
-  id: '/sangam/$slug',
-  path: '/sangam/$slug',
+const CommunityIdRoute = CommunityIdRouteImport.update({
+  id: '/community/$id',
+  path: '/community/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedProfileRoute = AuthenticatedProfileRouteImport.update({
@@ -64,10 +65,16 @@ const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
-const AuthenticatedAdminSangamsRoute =
-  AuthenticatedAdminSangamsRouteImport.update({
-    id: '/admin/sangams',
-    path: '/admin/sangams',
+const AuthenticatedCommunityRegisterRoute =
+  AuthenticatedCommunityRegisterRouteImport.update({
+    id: '/community/register',
+    path: '/community/register',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedAdminCommunityRoute =
+  AuthenticatedAdminCommunityRouteImport.update({
+    id: '/admin/community',
+    path: '/admin/community',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
 
@@ -78,9 +85,10 @@ export interface FileRoutesByFullPath {
   '/search': typeof SearchRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/profile': typeof AuthenticatedProfileRoute
-  '/sangam/$slug': typeof SangamSlugRoute
-  '/sangam/': typeof SangamIndexRoute
-  '/admin/sangams': typeof AuthenticatedAdminSangamsRoute
+  '/community/$id': typeof CommunityIdRoute
+  '/community/': typeof CommunityIndexRoute
+  '/admin/community': typeof AuthenticatedAdminCommunityRoute
+  '/community/register': typeof AuthenticatedCommunityRegisterRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -89,9 +97,10 @@ export interface FileRoutesByTo {
   '/search': typeof SearchRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/profile': typeof AuthenticatedProfileRoute
-  '/sangam/$slug': typeof SangamSlugRoute
-  '/sangam': typeof SangamIndexRoute
-  '/admin/sangams': typeof AuthenticatedAdminSangamsRoute
+  '/community/$id': typeof CommunityIdRoute
+  '/community': typeof CommunityIndexRoute
+  '/admin/community': typeof AuthenticatedAdminCommunityRoute
+  '/community/register': typeof AuthenticatedCommunityRegisterRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -102,9 +111,10 @@ export interface FileRoutesById {
   '/search': typeof SearchRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/profile': typeof AuthenticatedProfileRoute
-  '/sangam/$slug': typeof SangamSlugRoute
-  '/sangam/': typeof SangamIndexRoute
-  '/_authenticated/admin/sangams': typeof AuthenticatedAdminSangamsRoute
+  '/community/$id': typeof CommunityIdRoute
+  '/community/': typeof CommunityIndexRoute
+  '/_authenticated/admin/community': typeof AuthenticatedAdminCommunityRoute
+  '/_authenticated/community/register': typeof AuthenticatedCommunityRegisterRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -115,9 +125,10 @@ export interface FileRouteTypes {
     | '/search'
     | '/dashboard'
     | '/profile'
-    | '/sangam/$slug'
-    | '/sangam/'
-    | '/admin/sangams'
+    | '/community/$id'
+    | '/community/'
+    | '/admin/community'
+    | '/community/register'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -126,9 +137,10 @@ export interface FileRouteTypes {
     | '/search'
     | '/dashboard'
     | '/profile'
-    | '/sangam/$slug'
-    | '/sangam'
-    | '/admin/sangams'
+    | '/community/$id'
+    | '/community'
+    | '/admin/community'
+    | '/community/register'
   id:
     | '__root__'
     | '/'
@@ -138,9 +150,10 @@ export interface FileRouteTypes {
     | '/search'
     | '/_authenticated/dashboard'
     | '/_authenticated/profile'
-    | '/sangam/$slug'
-    | '/sangam/'
-    | '/_authenticated/admin/sangams'
+    | '/community/$id'
+    | '/community/'
+    | '/_authenticated/admin/community'
+    | '/_authenticated/community/register'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -149,8 +162,8 @@ export interface RootRouteChildren {
   LoginRoute: typeof LoginRoute
   RegisterRoute: typeof RegisterRoute
   SearchRoute: typeof SearchRoute
-  SangamSlugRoute: typeof SangamSlugRoute
-  SangamIndexRoute: typeof SangamIndexRoute
+  CommunityIdRoute: typeof CommunityIdRoute
+  CommunityIndexRoute: typeof CommunityIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -190,18 +203,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/sangam/': {
-      id: '/sangam/'
-      path: '/sangam'
-      fullPath: '/sangam/'
-      preLoaderRoute: typeof SangamIndexRouteImport
+    '/community/': {
+      id: '/community/'
+      path: '/community'
+      fullPath: '/community/'
+      preLoaderRoute: typeof CommunityIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/sangam/$slug': {
-      id: '/sangam/$slug'
-      path: '/sangam/$slug'
-      fullPath: '/sangam/$slug'
-      preLoaderRoute: typeof SangamSlugRouteImport
+    '/community/$id': {
+      id: '/community/$id'
+      path: '/community/$id'
+      fullPath: '/community/$id'
+      preLoaderRoute: typeof CommunityIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/profile': {
@@ -218,11 +231,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
-    '/_authenticated/admin/sangams': {
-      id: '/_authenticated/admin/sangams'
-      path: '/admin/sangams'
-      fullPath: '/admin/sangams'
-      preLoaderRoute: typeof AuthenticatedAdminSangamsRouteImport
+    '/_authenticated/community/register': {
+      id: '/_authenticated/community/register'
+      path: '/community/register'
+      fullPath: '/community/register'
+      preLoaderRoute: typeof AuthenticatedCommunityRegisterRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/admin/community': {
+      id: '/_authenticated/admin/community'
+      path: '/admin/community'
+      fullPath: '/admin/community'
+      preLoaderRoute: typeof AuthenticatedAdminCommunityRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
   }
@@ -231,13 +251,15 @@ declare module '@tanstack/react-router' {
 interface AuthenticatedRouteChildren {
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute
-  AuthenticatedAdminSangamsRoute: typeof AuthenticatedAdminSangamsRoute
+  AuthenticatedAdminCommunityRoute: typeof AuthenticatedAdminCommunityRoute
+  AuthenticatedCommunityRegisterRoute: typeof AuthenticatedCommunityRegisterRoute
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedProfileRoute: AuthenticatedProfileRoute,
-  AuthenticatedAdminSangamsRoute: AuthenticatedAdminSangamsRoute,
+  AuthenticatedAdminCommunityRoute: AuthenticatedAdminCommunityRoute,
+  AuthenticatedCommunityRegisterRoute: AuthenticatedCommunityRegisterRoute,
 }
 
 const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
@@ -250,8 +272,8 @@ const rootRouteChildren: RootRouteChildren = {
   LoginRoute: LoginRoute,
   RegisterRoute: RegisterRoute,
   SearchRoute: SearchRoute,
-  SangamSlugRoute: SangamSlugRoute,
-  SangamIndexRoute: SangamIndexRoute,
+  CommunityIdRoute: CommunityIdRoute,
+  CommunityIndexRoute: CommunityIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -1,0 +1,1 @@
+DROP POLICY IF EXISTS "Public read community photos" ON storage.objects;

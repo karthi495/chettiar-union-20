@@ -15,7 +15,7 @@ export function Navbar() {
   const links = [
     { to: "/", label: t("home") },
     { to: "/search", label: t("browse") },
-    { to: "/sangam", label: t("sangams") },
+    { to: "/community", label: t("communityDirectory") },
     user ? { to: "/dashboard", label: t("dashboard") } : null,
     user ? { to: "/profile", label: t("myProfile") } : null,
   ].filter(Boolean) as { to: string; label: string }[];

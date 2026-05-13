@@ -14,6 +14,78 @@ export type Database = {
   }
   public: {
     Tables: {
+      community_directory: {
+        Row: {
+          address: string | null
+          city: string | null
+          community_type: string | null
+          created_at: string
+          description: string | null
+          district: string | null
+          email: string | null
+          family_name: string
+          full_name: string
+          function_type: string | null
+          gothram: string | null
+          hide_address: boolean | null
+          id: string
+          image_urls: string[] | null
+          is_approved: boolean | null
+          phone: string | null
+          profession: string | null
+          updated_at: string
+          user_id: string | null
+          visibility: string
+          whatsapp: string | null
+        }
+        Insert: {
+          address?: string | null
+          city?: string | null
+          community_type?: string | null
+          created_at?: string
+          description?: string | null
+          district?: string | null
+          email?: string | null
+          family_name: string
+          full_name: string
+          function_type?: string | null
+          gothram?: string | null
+          hide_address?: boolean | null
+          id?: string
+          image_urls?: string[] | null
+          is_approved?: boolean | null
+          phone?: string | null
+          profession?: string | null
+          updated_at?: string
+          user_id?: string | null
+          visibility?: string
+          whatsapp?: string | null
+        }
+        Update: {
+          address?: string | null
+          city?: string | null
+          community_type?: string | null
+          created_at?: string
+          description?: string | null
+          district?: string | null
+          email?: string | null
+          family_name?: string
+          full_name?: string
+          function_type?: string | null
+          gothram?: string | null
+          hide_address?: boolean | null
+          id?: string
+          image_urls?: string[] | null
+          is_approved?: boolean | null
+          phone?: string | null
+          profession?: string | null
+          updated_at?: string
+          user_id?: string | null
+          visibility?: string
+          whatsapp?: string | null
+        }
+        Relationships: []
+      }
       otp_codes: {
         Row: {
           attempts: number | null
@@ -113,123 +185,6 @@ export type Database = {
           sub_sect?: string | null
           updated_at?: string
           user_id?: string
-        }
-        Relationships: []
-      }
-      sangams: {
-        Row: {
-          active_events: number | null
-          address_en: string | null
-          address_ta: string | null
-          blood_donation_info: string | null
-          city: string | null
-          community_name: string | null
-          contact_person: string | null
-          created_at: string
-          description_en: string | null
-          description_ta: string | null
-          district: string | null
-          educational_support_info: string | null
-          email: string | null
-          founded_year: number | null
-          gallery_urls: string[] | null
-          id: string
-          image_url: string | null
-          is_approved: boolean | null
-          is_featured: boolean | null
-          is_popular: boolean | null
-          map_link: string | null
-          marriage_help_info: string | null
-          marriage_success_count: number | null
-          office_timing_en: string | null
-          office_timing_ta: string | null
-          phone: string | null
-          registered_families: number | null
-          sangam_name_en: string
-          sangam_name_ta: string | null
-          slug: string
-          total_members: number | null
-          upcoming_events: Json | null
-          updated_at: string
-          view_count: number | null
-          website: string | null
-          whatsapp: string | null
-        }
-        Insert: {
-          active_events?: number | null
-          address_en?: string | null
-          address_ta?: string | null
-          blood_donation_info?: string | null
-          city?: string | null
-          community_name?: string | null
-          contact_person?: string | null
-          created_at?: string
-          description_en?: string | null
-          description_ta?: string | null
-          district?: string | null
-          educational_support_info?: string | null
-          email?: string | null
-          founded_year?: number | null
-          gallery_urls?: string[] | null
-          id?: string
-          image_url?: string | null
-          is_approved?: boolean | null
-          is_featured?: boolean | null
-          is_popular?: boolean | null
-          map_link?: string | null
-          marriage_help_info?: string | null
-          marriage_success_count?: number | null
-          office_timing_en?: string | null
-          office_timing_ta?: string | null
-          phone?: string | null
-          registered_families?: number | null
-          sangam_name_en: string
-          sangam_name_ta?: string | null
-          slug: string
-          total_members?: number | null
-          upcoming_events?: Json | null
-          updated_at?: string
-          view_count?: number | null
-          website?: string | null
-          whatsapp?: string | null
-        }
-        Update: {
-          active_events?: number | null
-          address_en?: string | null
-          address_ta?: string | null
-          blood_donation_info?: string | null
-          city?: string | null
-          community_name?: string | null
-          contact_person?: string | null
-          created_at?: string
-          description_en?: string | null
-          description_ta?: string | null
-          district?: string | null
-          educational_support_info?: string | null
-          email?: string | null
-          founded_year?: number | null
-          gallery_urls?: string[] | null
-          id?: string
-          image_url?: string | null
-          is_approved?: boolean | null
-          is_featured?: boolean | null
-          is_popular?: boolean | null
-          map_link?: string | null
-          marriage_help_info?: string | null
-          marriage_success_count?: number | null
-          office_timing_en?: string | null
-          office_timing_ta?: string | null
-          phone?: string | null
-          registered_families?: number | null
-          sangam_name_en?: string
-          sangam_name_ta?: string | null
-          slug?: string
-          total_members?: number | null
-          upcoming_events?: Json | null
-          updated_at?: string
-          view_count?: number | null
-          website?: string | null
-          whatsapp?: string | null
         }
         Relationships: []
       }
